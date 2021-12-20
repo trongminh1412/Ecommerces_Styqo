@@ -1,0 +1,23 @@
+$gray-color: #828282;
+.auth_bg--relative {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 100vh;
+
+  .auth_bg--absolute {
+    // background-image: url("/img/register_bg_2.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    --tw-bg-opacity: 0.2;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  i svg {
+    width: 12px;
+    color: $gray-color;
+  }
+}
