@@ -21,8 +21,10 @@ export default function Home() {
 
             <div className={styles.grid}>
               <a href="https://nextjs.org/docs" className={styles.card}>
-                <p>username: johoje39511@videour.com </p>
-                <p>password: 12345678</p>
+                <h2>Learn &rarr;</h2>
+                <p>
+                  Learn about Next.js in an interactive course with quizzes!
+                </p>
               </a>
 
               <a href="https://nextjs.org/learn" className={styles.card}>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Link from "next/link";
@@ -31,7 +32,8 @@ export default function Forgot_password() {
 
   const { register, formState, reset, handleSubmit } = useForm(formOption);
   const { errors } = formState;
-  const onSubmit = (data) => console.log(data);
+  const router = useRouter();
+  const onSubmit = (data) => router.push("/auth/otp");
   return (
     <>
       <Container className="py-5">
@@ -75,7 +77,7 @@ export default function Forgot_password() {
                     </FormGroup>
                     <FormGroup className="pt-5">
                       <Button type="submit" block>
-                        <Link href="/auth/otp">Submit</Link>
+                        Submit
                       </Button>
                     </FormGroup>
                     <div className="pt-3 text-center">

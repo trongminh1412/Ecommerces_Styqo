@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Link from "next/link";
@@ -51,7 +52,10 @@ export default function Reset_password() {
   const ConfirmPasswordVisiblity = () => {
     setconfirmPasswordShown(confirmPasswordShown ? false : true);
   };
-  const onSubmit = (data) => console.log(data);
+
+  //submit
+  const router = useRouter();
+  const onSubmit = (data) => router.push("/auth/login");
   return (
     <>
       <Container className="py-5">
@@ -117,7 +121,7 @@ export default function Reset_password() {
                     </FormGroup>
                     <FormGroup className="pt-5">
                       <Button type="submit" block>
-                        <Link href="/auth/login">Save update</Link>
+                        Save update
                       </Button>
                     </FormGroup>
                     <div className="pt-3 text-center">

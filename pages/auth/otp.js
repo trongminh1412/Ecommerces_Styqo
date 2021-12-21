@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Link from "next/link";
@@ -34,7 +35,8 @@ export default function OTP() {
 
   //OTP
 
-  const onSubmit = (data) => console.log(data);
+  const router = useRouter();
+  const onSubmit = (data) => router.push("/auth/reset_password");
   return (
     <>
       <Container className="py-5">
@@ -64,11 +66,11 @@ export default function OTP() {
                       <div className="text-end fs-6 text-danger pb-2">
                         <Link href="/auth/reset_password">Re-send Code</Link>
                       </div>
-                      <div className="d-flex">
-                        <input type="tel" maxLength={1} />
-                        <input type="tel" maxLength={1} />
-                        <input type="tel" maxLength={1} />
-                        <input type="tel" maxLength={1} />
+                      <div className="d-flex otp">
+                        <input type="text" maxLength={1} />
+                        <input type="text" maxLength={1} />
+                        <input type="text" maxLength={1} />
+                        <input type="text" maxLength={1} />
                       </div>
                     </FormGroup>
                     <FormGroup className="pt-5">

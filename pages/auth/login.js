@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Link from "next/link";
@@ -8,6 +9,8 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import NavDropdown from "components/Dropdowns/navDropdown";
+import { getCsrfToken } from "next-auth/react";
+import axios from "axios";
 // import { signIn, SessionProvider, getCsrfToken } from "next-auth/react";
 import {
   Container,
@@ -28,7 +31,7 @@ import {
 const eye = <FontAwesomeIcon icon={faEye} />;
 const sleye = <FontAwesomeIcon icon={faEyeSlash} />;
 
-export default function Login() {
+export default function Login({ csrfToken }) {
   // form valid
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -50,10 +53,17 @@ export default function Login() {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-
+  const router = useRouter();
   const onSubmit = (data) => {
-    // signIn(SessionProvider.id);
-    console.log(data);
+    axios
+      .post("http://localhost:3000/auth/login", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    router.push("/");
   };
   return (
     <>
@@ -80,11 +90,14 @@ export default function Login() {
                   <Form
                     className="form-default"
                     onSubmit={handleSubmit(onSubmit)}
-                    method="post"
-                    action="/"
                   >
                     <FormGroup>
                       <Label for="Email">Email</Label>
+                      <input
+                        name="csrfToken"
+                        type="hidden"
+                        defaultValue={csrfToken}
+                      />
                       <input
                         id="email"
                         name="email"
@@ -113,9 +126,7 @@ export default function Login() {
                           errors.password ? "is-invalid" : ""
                         }`}
                       />
-                      <i className="a" onClick={togglePasswordVisiblity}>
-                        {eye}
-                      </i>
+                      <i onClick={togglePasswordVisiblity}>{eye}</i>
                       <div className="invalid-feedback">
                         {errors.password?.message}
                       </div>
@@ -148,7 +159,7 @@ export default function Login() {
                     </Row>
                     <FormGroup className="pt-5">
                       <Button type="submit" block>
-                        <Link href="/auth/success">Sign In</Link>
+                        Sign In
                       </Button>
                     </FormGroup>
                     <div className="pt-3 text-center">
@@ -168,5 +179,12 @@ export default function Login() {
       </Container>
     </>
   );
+}
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
 }
 Login.layout = Auth;

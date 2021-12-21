@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import NavDropdown from "components/Dropdowns/navDropdown";
+import axios from "axios";
 import {
   Container,
   Row,
@@ -46,6 +48,10 @@ export default function Register() {
   const { register, formState, reset, handleSubmit } = useForm(formOption);
   const { errors } = formState;
 
+  //
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
   // hide/show password
   const [passwordShown, setPasswordShown] = useState(false);
   const PasswordVisiblity = () => {
@@ -55,8 +61,18 @@ export default function Register() {
   const ConfirmPasswordVisiblity = () => {
     setconfirmPasswordShown(confirmPasswordShown ? false : true);
   };
-
-  const onSubmit = (data) => console.log(data);
+  const router = useRouter();
+  const onSubmit = (data) => {
+    axios
+      .post("http://localhost:3000/auth/register", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    router.push("/auth/success");
+  };
 
   return (
     <>
@@ -193,7 +209,7 @@ export default function Register() {
                     </FormGroup>
                     <FormGroup className="pt-5">
                       <Button type="submit" block>
-                        <Link href="/auth/success">Sign Up</Link>
+                        Sign Up
                       </Button>
                     </FormGroup>
                     <div className="pt-3 text-center">

@@ -33,14 +33,34 @@ export default NextAuth({
         return null;
       },
 
-      // *step2
-      // async authorize(credentials) {
-      //   const user = {
-      //     name: "johoje39511@videour.com",
-      //     password: "12345678",
-      //   };
+      // step2
+      // async authorize(credentials, req) {
+      //   try {
+      //     const user = await axios.get("https://dev-api.7hit.com/api/login");
+      //     if (user) {
+      //       console.log(user);
+      //       return user.data;
+      //     } else {
+      //       return null;
+      //     }
+      //   } catch (e) {
+      //     throw new Error("There was an error on user authentication");
+      //   }
+      // const res = await fetch(
+      //   "https://61c0387333f24c00178231c2.mockapi.io/login",
+      //   {
+      //     method: "Post",
+      //     body: JSON.stringify(credentials),
+      //     headers: { "Content-Type": "application/json" },
+      //   }
+      // );
+      // const user = await res.json();
+      // if (res.ok && user) {
       //   return user;
+      // }
+      // return null;
       // },
+      // https://61c0387333f24c00178231c2.mockapi.io/login
     }),
   ],
   callbacks: {

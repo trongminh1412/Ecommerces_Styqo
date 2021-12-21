@@ -21,7 +21,13 @@ $red-color: #e43227;
   .col_block--card {
     border-radius: 6px;
   }
-
+  .svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+  }
   Form {
     .form-default--text {
       text-align: right;
@@ -50,7 +56,7 @@ $red-color: #e43227;
     button {
       border-radius: 10px;
     }
-    input[type="tel"] {
+    .otp input[type="text"] {
       width: 21% !important;
       height: 40px !important;
       border: 1px solid $gray-color;
