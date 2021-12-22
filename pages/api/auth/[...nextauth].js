@@ -35,17 +35,29 @@ export default NextAuth({
 
       // step2
       // async authorize(credentials, req) {
-      //   try {
-      //     const user = await axios.get("https://dev-api.7hit.com/api/login");
-      //     if (user) {
-      //       console.log(user);
+      //   axios
+      //     .post("https://dev-api.7hit.com/api/login", {
+      //       username: "johoje39511@videour.com",
+      //       password: "12345678",
+      //     })
+      //     .then(function (response) {
+      //       console.log(response);
       //       return user.data;
-      //     } else {
-      //       return null;
-      //     }
-      //   } catch (e) {
-      //     throw new Error("There was an error on user authentication");
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     });
+      // try {
+      //   const user = await axios.post("https://dev-api.7hit.com/api/login");
+      //   if (user) {
+      //     console.log(user);
+      //     return user.data;
+      //   } else {
+      //     return null;
       //   }
+      // } catch (e) {
+      //   throw new Error("There was an error on user authentication");
+      // }
       // const res = await fetch(
       //   "https://61c0387333f24c00178231c2.mockapi.io/login",
       //   {

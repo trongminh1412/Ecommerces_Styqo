@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Router from "next/router";
+import { wrapper } from "../redux/store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "/styles/header.scss";
 import "/styles/globals.scss";
@@ -8,7 +9,7 @@ import "/styles/login.scss";
 import "/styles/auth.scss";
 import { SessionProvider } from "next-auth/react";
 
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   // const Layout = Component.layout || (({ children }) => <>{children}</>);
   return (
     <>
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }
+export default wrapper.withRedux(MyApp);
 // function MyApp({ Component, pageProps }) {
 //   const Layout = Component.layout || (({ children }) => <>{children}</>);
 
