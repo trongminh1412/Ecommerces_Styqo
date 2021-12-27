@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { createPopper } from "@popperjs/core";
+import { VscChevronDown } from "react-icons/vsc";
 
-const ChevronDown = <FontAwesomeIcon icon={faChevronDown} />;
-
-const NavDropdown = () => {
+const LanguageDropdown = () => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
   const btnDropdownRef = useRef();
@@ -33,7 +30,9 @@ const NavDropdown = () => {
       >
         English
       </a>{" "}
-      <i>{ChevronDown}</i>
+      <i>
+        <VscChevronDown />
+      </i>
       <div
         ref={popoverDropdownRef}
         className={(dropdownPopoverShow ? "d-block py-2" : "d-none py-2") + ""}
@@ -48,4 +47,4 @@ const NavDropdown = () => {
   );
 };
 
-export default NavDropdown;
+export default LanguageDropdown;

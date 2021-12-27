@@ -1,0 +1,106 @@
+$gray-color: #828282;
+$gray2-color: #f2f2f2;
+$blue-color: #005cc8;
+$red-color: #e43226;
+$orange-color: #f7971d;
+$radius: 10px;
+
+//*************indexNavbar************//
+.header.sticky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 91;
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px 15px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0px 6px 13px 0px rgb(0 0 0 / 6%);
+    opacity: 0;
+    -webkit-animation: fadeInDown 0.95s ease-in-out 0s 1 normal none running;
+    animation: fadeInDown 0.95s ease-in-out 0s 1 normal none running;
+    -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    opacity: 1;
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+}
+
+// topbanner
+.top-banner {
+  Button {
+    &:focus,
+    &:active:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+//header
+.header {
+  padding: 0px 15px;
+  .navbar {
+    padding: 10px 0px;
+    line-height: 50px;
+    align-items: center;
+    .input-search {
+      width: 50%;
+    }
+    .form-search {
+      border-start-start-radius: $radius;
+      border-end-start-radius: $radius;
+      &:focus-visible {
+        outline: none;
+        border: 1px solid $gray-color !important;
+      }
+      &:focus {
+        box-shadow: none;
+        border: 1px solid $gray-color !important;
+      }
+    }
+    .input-group-text {
+      border-start-end-radius: $radius;
+      border-end-end-radius: $radius;
+      background-color: $red-color;
+      border-color: $red-color;
+    }
+    .dropdown {
+      .category {
+        border-radius: $radius;
+        background-color: $gray2-color;
+        padding: 10px;
+        line-height: 1;
+        cursor: pointer;
+        &:hover {
+          background-color: $red-color;
+          color: $gray2-color;
+        }
+      }
+      .dropdown-menu {
+        border-radius: $radius;
+        filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.25));
+        border: none;
+      }
+    }
+  }
+  .nav-item {
+    padding-left: 50px;
+    &:first-child {
+      padding: 0;
+    }
+    a {
+      color: $gray-color;
+      padding: 5px;
+    }
+    a:hover,
+    &.active a {
+      border-bottom: 1px solid $orange-color;
+      color: black;
+    }
+  }
+}
