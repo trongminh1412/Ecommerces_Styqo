@@ -12,6 +12,7 @@ $radius: 10px;
   left: 0;
   width: 100%;
   z-index: 91;
+
   .navbar {
     position: fixed;
     top: 0;
@@ -31,7 +32,7 @@ $radius: 10px;
   }
 }
 
-// topbanner
+// top banner
 .top-banner {
   Button {
     &:focus,
@@ -41,46 +42,71 @@ $radius: 10px;
   }
 }
 
+// top navbar
+.top-navbar {
+  .dropdown-toggle {
+    cursor: pointer;
+    &::after {
+      font-size: 0;
+    }
+  }
+  .dropdown-menu.show {
+    z-index: 1050;
+  }
+}
 //header
 .header {
   padding: 0px 15px;
+
   .navbar {
     padding: 10px 0px;
     line-height: 50px;
     align-items: center;
+
     .input-search {
       width: 50%;
     }
+
     .form-search {
       border-start-start-radius: $radius;
       border-end-start-radius: $radius;
+
       &:focus-visible {
         outline: none;
         border: 1px solid $gray-color !important;
       }
+
       &:focus {
         box-shadow: none;
         border: 1px solid $gray-color !important;
       }
     }
+
     .input-group-text {
       border-start-end-radius: $radius;
       border-end-end-radius: $radius;
       background-color: $red-color;
       border-color: $red-color;
     }
+
     .dropdown {
       .category {
         border-radius: $radius;
         background-color: $gray2-color;
         padding: 10px;
         line-height: 1;
+
         cursor: pointer;
         &:hover {
           background-color: $red-color;
           color: $gray2-color;
         }
+
+        &::after {
+          font-size: 0;
+        }
       }
+
       .dropdown-menu {
         border-radius: $radius;
         filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.25));
@@ -88,15 +114,19 @@ $radius: 10px;
       }
     }
   }
+
   .nav-item {
     padding-left: 50px;
+
     &:first-child {
       padding: 0;
     }
+
     a {
       color: $gray-color;
       padding: 5px;
     }
+
     a:hover,
     &.active a {
       border-bottom: 1px solid $orange-color;

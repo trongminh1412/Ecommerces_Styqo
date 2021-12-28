@@ -21,6 +21,12 @@ $red-color: #e43227;
   .col_block--card {
     border-radius: 6px;
   }
+  .dropdown-toggle {
+    cursor: pointer;
+    &::after {
+      font-size: 0;
+    }
+  }
 
   Form {
     .form-default--text {
@@ -50,7 +56,7 @@ $red-color: #e43227;
     button {
       border-radius: 10px;
     }
-    .otp input[type="text"] {
+    .otp input[type='text'] {
       width: 21% !important;
       height: 40px !important;
       border: 1px solid $gray-color;

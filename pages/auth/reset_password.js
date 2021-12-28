@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import Link from "next/link";
-import Auth from "../../layouts/Auth";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import Link from 'next/link';
+import Auth from '../../layouts/Auth';
+import Image from 'next/image';
+import { AiOutlineEye } from 'react-icons/ai';
 import {
   Container,
   Row,
@@ -22,20 +21,17 @@ import {
   Label,
   Input,
   Button,
-} from "reactstrap";
-
-const eye = <FontAwesomeIcon icon={faEye} />;
-const sleye = <FontAwesomeIcon icon={faEyeSlash} />;
+} from 'reactstrap';
 
 export default function Reset_password() {
   // form valid
   const validationSchema = Yup.object().shape({
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm Password is required'),
   });
 
   const formOption = { resolver: yupResolver(validationSchema) };
@@ -45,17 +41,17 @@ export default function Reset_password() {
 
   // hide/show password
   const [passwordShown, setPasswordShown] = useState(false);
-  const PasswordVisiblity = () => {
+  const PasswordVisibility = () => {
     setPasswordShown(passwordShown ? false : true);
   };
   const [confirmPasswordShown, setconfirmPasswordShown] = useState(false);
-  const ConfirmPasswordVisiblity = () => {
+  const ConfirmPasswordVisibility = () => {
     setconfirmPasswordShown(confirmPasswordShown ? false : true);
   };
 
   //submit
   const router = useRouter();
-  const onSubmit = (data) => router.push("/auth/login");
+  const onSubmit = (data) => router.push('/auth/login');
   return (
     <>
       <Container className="py-5">
@@ -85,14 +81,14 @@ export default function Reset_password() {
                         id="password"
                         name="password"
                         placeholder="Enter your new password"
-                        type={passwordShown ? "text" : "password"}
-                        {...register("password", { required: true })}
+                        type={passwordShown ? 'text' : 'password'}
+                        {...register('password', { required: true })}
                         className={`form-control ${
-                          errors.password ? "is-invalid" : ""
+                          errors.password ? 'is-invalid' : ''
                         }`}
                       />
-                      <i className="a" onClick={PasswordVisiblity}>
-                        {eye}
+                      <i className="a" onClick={PasswordVisibility}>
+                        <AiOutlineEye />
                       </i>
                       <div className="invalid-feedback">
                         {errors.password?.message}
@@ -106,14 +102,14 @@ export default function Reset_password() {
                         id="confirmPassword"
                         name="confirmPassword"
                         placeholder="Re-enter your new password"
-                        type={confirmPasswordShown ? "text" : "password"}
-                        {...register("confirmPassword")}
+                        type={confirmPasswordShown ? 'text' : 'password'}
+                        {...register('confirmPassword')}
                         className={`form-control ${
-                          errors.confirmPassword ? "is-invalid" : ""
+                          errors.confirmPassword ? 'is-invalid' : ''
                         }`}
                       />
-                      <i className="a" onClick={ConfirmPasswordVisiblity}>
-                        {eye}
+                      <i className="a" onClick={ConfirmPasswordVisibility}>
+                        <AiOutlineEye />
                       </i>
                       <div className="invalid-feedback">
                         {errors.confirmPassword?.message}
@@ -126,7 +122,7 @@ export default function Reset_password() {
                     </FormGroup>
                     <div className="pt-3 text-center">
                       <div className="text-reset opacity-60 fs-14">
-                        Back to{" "}
+                        Back to{' '}
                         <span className="text-danger">
                           <Link href="/auth/login">login</Link>
                         </span>

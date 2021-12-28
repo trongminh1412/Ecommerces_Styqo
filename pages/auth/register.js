@@ -1,17 +1,17 @@
-import React, { SyntheticEvent, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import Link from "next/link";
-import Auth from "../../layouts/Auth";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import LanguageDropdown from "components/Dropdowns/Language";
-import { userService } from "services";
-import { Layout } from "components/account";
-import axios from "axios";
+import React, { SyntheticEvent, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import Link from 'next/link';
+import Auth from '../../layouts/Auth';
+import Image from 'next/image';
+import LanguageDropdown from 'components/Dropdown/Language';
+import { userService } from 'services';
+import { Layout } from 'components/account';
+import { AiOutlineEye } from 'react-icons/ai';
+import { VscChevronDown } from 'react-icons/vsc';
+import axios from 'axios';
 import {
   Container,
   Row,
@@ -26,23 +26,28 @@ import {
   Label,
   Input,
   Button,
-} from "reactstrap";
-
-const eye = <FontAwesomeIcon icon={faEye} />;
-const sleye = <FontAwesomeIcon icon={faEyeSlash} />;
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 
 export default function Register() {
+  //dropdown
+  const [dropdownOpen, setOpen] = React.useState(false);
+  const toggles = () => setOpen(!dropdownOpen);
+
   // form valid
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Name is required"),
-    email: Yup.string().required("Email is required").email("Email is invalid"),
+    username: Yup.string().required('Name is required'),
+    email: Yup.string().required('Email is required').email('Email is invalid'),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
-    acceptTerm: Yup.bool().oneOf([true], "Accept is required"),
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm Password is required'),
+    acceptTerm: Yup.bool().oneOf([true], 'Accept is required'),
   });
 
   const formOption = { resolver: yupResolver(validationSchema) };
@@ -51,11 +56,11 @@ export default function Register() {
   const { errors } = formState;
   // hide/show password
   const [passwordShown, setPasswordShown] = useState(false);
-  const PasswordVisiblity = () => {
+  const PasswordVisibility = () => {
     setPasswordShown(passwordShown ? false : true);
   };
   const [confirmPasswordShown, setconfirmPasswordShown] = useState(false);
-  const ConfirmPasswordVisiblity = () => {
+  const ConfirmPasswordVisibility = () => {
     setconfirmPasswordShown(confirmPasswordShown ? false : true);
   };
   const router = useRouter();
@@ -63,10 +68,10 @@ export default function Register() {
     return userService
       .register(user)
       .then(() => {
-        router.push("/auth/success");
+        router.push('/auth/success');
       })
       .catch(() => {
-        router.push("/auth/register");
+        router.push('/auth/register');
       });
   }
 
@@ -87,7 +92,26 @@ export default function Register() {
                     />
                     <div className="py-2 float-end">
                       <li className="d-inline-block">
-                        <LanguageDropdown />
+                        <Dropdown isOpen={dropdownOpen} toggle={toggles}>
+                          <DropdownToggle
+                            caret
+                            tag="div"
+                            className="d-flex align-items-center"
+                          >
+                            {''}
+                            <h6 className="mb-0">English</h6>
+                            <VscChevronDown />
+                          </DropdownToggle>
+                          <DropdownMenu className="mt-2">
+                            <DropdownItem header>English</DropdownItem>
+                            <DropdownItem>Việt Nam</DropdownItem>
+                            <DropdownItem>Ả Rập</DropdownItem>
+                            <DropdownItem>Hindi</DropdownItem>
+                            <DropdownItem>France</DropdownItem>
+                            <DropdownItem>Spain</DropdownItem>
+                            <DropdownItem>Italy</DropdownItem>
+                          </DropdownMenu>
+                        </Dropdown>
                       </li>
                     </div>
                     <h1 className="font-bold px-4 pt-3">Create an account</h1>
@@ -106,12 +130,12 @@ export default function Register() {
                           name="username"
                           placeholder="Enter your fullname (Optional)"
                           type="text"
-                          {...register("username", {
+                          {...register('username', {
                             required: true,
                             maxLength: 10,
                           })}
                           className={`form-control ${
-                            errors.username ? "is-invalid" : ""
+                            errors.username ? 'is-invalid' : ''
                           }`}
                         />
                         <div className="invalid-feedback">
@@ -125,9 +149,9 @@ export default function Register() {
                           name="email"
                           placeholder="Enter your email"
                           type="email"
-                          {...register("email", { required: true })}
+                          {...register('email', { required: true })}
                           className={`form-control  ${
-                            errors.email ? "is-invalid" : ""
+                            errors.email ? 'is-invalid' : ''
                           }`}
                         />
                         <div className="invalid-feedback">
@@ -142,14 +166,14 @@ export default function Register() {
                           id="password"
                           name="password"
                           placeholder="At least 6 characters"
-                          type={passwordShown ? "text" : "password"}
-                          {...register("password", { required: true })}
+                          type={passwordShown ? 'text' : 'password'}
+                          {...register('password', { required: true })}
                           className={`form-control ${
-                            errors.password ? "is-invalid" : ""
+                            errors.password ? 'is-invalid' : ''
                           }`}
                         />
-                        <i className="a" onClick={PasswordVisiblity}>
-                          {eye}
+                        <i className="a" onClick={PasswordVisibility}>
+                          <AiOutlineEye />
                         </i>
                         <div className="invalid-feedback">
                           {errors.password?.message}
@@ -163,14 +187,14 @@ export default function Register() {
                           id="confirmPassword"
                           name="confirmPassword"
                           placeholder="Re-enter password"
-                          type={confirmPasswordShown ? "text" : "password"}
-                          {...register("confirmPassword")}
+                          type={confirmPasswordShown ? 'text' : 'password'}
+                          {...register('confirmPassword')}
                           className={`form-control ${
-                            errors.confirmPassword ? "is-invalid" : ""
+                            errors.confirmPassword ? 'is-invalid' : ''
                           }`}
                         />
-                        <i className="a" onClick={ConfirmPasswordVisiblity}>
-                          {eye}
+                        <i className="a" onClick={ConfirmPasswordVisibility}>
+                          <AiOutlineEye />
                         </i>
                         <div className="invalid-feedback">
                           {errors.confirmPassword?.message}
@@ -180,24 +204,24 @@ export default function Register() {
                         <input
                           name="acceptTerm"
                           type="checkbox"
-                          {...register("acceptTerm", { required: true })}
+                          {...register('acceptTerm', { required: true })}
                           id="acceptTerm"
                           className={`col-1  ${
-                            errors.acceptTerm ? "is-invalid" : ""
+                            errors.acceptTerm ? 'is-invalid' : ''
                           }`}
                         />
                         <div className="col-11 d-inline-flex">
                           <span className="opacity-60 float-end text-regist">
-                            By confirming this account, you agree to{" "}
+                            By confirming this account, you agree to{' '}
                             <strong className="text-danger">7Hit.com </strong>
-                            about{" "}
+                            about{' '}
                             <strong className="text-danger">
-                              Membership fee{" "}
+                              Membership fee{' '}
                             </strong>
-                            and{" "}
+                            and{' '}
                             <strong className="text-danger">
-                              Privacy policy{" "}
-                            </strong>{" "}
+                              Privacy policy{' '}
+                            </strong>{' '}
                           </span>
                         </div>
                         <div className="invalid-feedback ps-4">
@@ -218,7 +242,7 @@ export default function Register() {
                       </FormGroup>
                       <div className="pt-3 text-center">
                         <div className="text-reset opacity-60 fs-14 ">
-                          Already have an account?{" "}
+                          Already have an account?{' '}
                           <span className="text-danger">
                             <Link href="/auth/login">Sign In</Link>
                           </span>

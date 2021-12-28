@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import Link from "next/link";
-import Auth from "../../layouts/Auth";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import LanguageDropdown from "components/Dropdowns/Language";
-import { userService } from "services";
-import { Layout } from "components/account/Layout";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import Link from 'next/link';
+import Auth from '../../layouts/Auth';
+import Image from 'next/image';
+// import LanguageDropdown from 'components/Dropdown/Language';
+// import { LanguageDropdown } from 'components/Dropdown/LanguageDropdown';
+import { userService } from 'services';
+import { Layout } from 'components/account/Layout';
+import { AiOutlineEye } from 'react-icons/ai';
+import { VscChevronDown } from 'react-icons/vsc';
+import axios from 'axios';
 import {
   signIn,
   SessionProvider,
   getCsrfToken,
   getSession,
-} from "next-auth/react";
+} from 'next-auth/react';
 import {
   Container,
   Row,
@@ -32,21 +33,26 @@ import {
   Label,
   Input,
   Button,
-} from "reactstrap";
-
-const eye = <FontAwesomeIcon icon={faEye} />;
-const sleye = <FontAwesomeIcon icon={faEyeSlash} />;
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 
 export default function Login() {
+  //dropdown
+  const [dropdownOpen, setOpen] = React.useState(false);
+  const toggles = () => setOpen(!dropdownOpen);
+
   // form valid
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required("No account exist with this email")
-      .email("Email is invalid"),
+      .required('No account exist with this email')
+      .email('Email is invalid'),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-    acceptTerm: Yup.bool().oneOf([true], "Accept is required"),
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
+    acceptTerm: Yup.bool().oneOf([true], 'Accept is required'),
   });
   const formOption = { resolver: yupResolver(validationSchema) };
 
@@ -56,7 +62,7 @@ export default function Login() {
 
   // hide/show password
   const [passwordShown, setPasswordShown] = useState(false);
-  const togglePasswordVisiblity = () => {
+  const togglePasswordVisibility = () => {
     setPasswordShown(passwordShown ? false : true);
   };
   const router = useRouter();
@@ -64,11 +70,11 @@ export default function Login() {
     return userService
       .login(email, password)
       .then(() => {
-        const returnUrl = router.query.returnUrl || "/";
+        const returnUrl = router.query.returnUrl || '/';
         router.push(returnUrl);
       })
       .catch(() => {
-        router.push("/auth/login");
+        router.push('/auth/login');
       });
   }
   return (
@@ -81,7 +87,26 @@ export default function Login() {
                 <CardBody>
                   <div className="py-2">
                     <li className="d-inline-block float-end">
-                      <LanguageDropdown />
+                      <Dropdown isOpen={dropdownOpen} toggle={toggles}>
+                        <DropdownToggle
+                          caret
+                          tag="div"
+                          className="d-flex align-items-center"
+                        >
+                          {''}
+                          <h6 className="mb-0">English</h6>
+                          <VscChevronDown />
+                        </DropdownToggle>
+                        <DropdownMenu className="mt-2">
+                          <DropdownItem header>English</DropdownItem>
+                          <DropdownItem>Việt Nam</DropdownItem>
+                          <DropdownItem>Ả Rập</DropdownItem>
+                          <DropdownItem>Hindi</DropdownItem>
+                          <DropdownItem>France</DropdownItem>
+                          <DropdownItem>Spain</DropdownItem>
+                          <DropdownItem>Italy</DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
                     </li>
                   </div>
                   <CardTitle className="py-5">
@@ -105,9 +130,9 @@ export default function Login() {
                           name="email"
                           placeholder="Enter your email"
                           type="email"
-                          {...register("email", { required: true })}
+                          {...register('email', { required: true })}
                           className={`form-control  ${
-                            errors.email ? "is-invalid" : ""
+                            errors.email ? 'is-invalid' : ''
                           }`}
                         />
                         <div className="invalid-feedback">
@@ -122,13 +147,15 @@ export default function Login() {
                           id="password"
                           name="password"
                           placeholder="At least 6 characters"
-                          type={passwordShown ? "text" : "password"}
-                          {...register("password", { required: true })}
+                          type={passwordShown ? 'text' : 'password'}
+                          {...register('password', { required: true })}
                           className={`form-control ${
-                            errors.password ? "is-invalid" : ""
+                            errors.password ? 'is-invalid' : ''
                           }`}
                         />
-                        <i onClick={togglePasswordVisiblity}>{eye}</i>
+                        <i onClick={togglePasswordVisibility}>
+                          <AiOutlineEye />
+                        </i>
                         <div className="invalid-feedback">
                           {errors.password?.message}
                         </div>
@@ -139,12 +166,12 @@ export default function Login() {
                             <input
                               name="acceptTerm"
                               type="checkbox"
-                              {...register("acceptTerm", { required: true })}
+                              {...register('acceptTerm', { required: true })}
                               id="acceptTerm"
                               className={`col-1  ${
-                                errors.acceptTerm ? "is-invalid" : ""
+                                errors.acceptTerm ? 'is-invalid' : ''
                               }`}
-                            />{" "}
+                            />{' '}
                             <div className="d-inline-flex">Remember Me</div>
                             <div className="invalid-feedback">
                               {errors.acceptTerm?.message}
@@ -169,7 +196,7 @@ export default function Login() {
                       </FormGroup>
                       <div className="pt-3 text-center">
                         <div className="text-reset opacity-60 fs-14">
-                          Don`t have an account?{" "}
+                          Don`t have an account?{' '}
                           <span className="text-danger">
                             <Link href="/auth/register">Sign Up</Link>
                           </span>

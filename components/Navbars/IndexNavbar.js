@@ -1,74 +1,14 @@
-// import React from "react";
-// import Link from "next/link";
-// // components
-
-// export default function Navbar(props) {
-//   const [navbarOpen, setNavbarOpen] = React.useState(false);
-//   return (
-//     <>
-//       <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow">
-//         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-//           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-//             <Link href="/">
-//               <a
-//                 className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
-//                 href="#pablo"
-//               >
-//                 7HIT NextJS
-//               </a>
-//             </Link>
-//             <button
-//               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-//               type="button"
-//               onClick={() => setNavbarOpen(!navbarOpen)}
-//             >
-//               <i className="fas fa-bars"></i>
-//             </button>
-//           </div>
-//           <div
-//             className={
-//               "lg:flex flex-grow items-center bg-white lg:bg-opacity-0 lg:shadow-none" +
-//               (navbarOpen ? " block" : " hidden")
-//             }
-//             id="example-navbar-warning"
-//           >
-//             <ul className="flex flex-col lg:flex-row list-none mr-auto">
-//               <li className="flex items-center">
-//                 <a
-//                   className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-//                   href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/overview/notus?ref=nnjs-index-navbar"
-//                 >
-//                   <i className="text-blueGray-400 far fa-file-alt text-lg leading-lg mr-2" />{" "}
-//                   Docs
-//                 </a>
-//               </li>
-//             </ul>
-//             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-//               <li className="flex items-center">
-//                 <Link href="/auth/login">
-//                   <a>login</a>
-//                 </Link>
-//               </li>
-//             </ul>
-//           </div>
-//         </div>
-//       </nav>
-//     </>
-//   );
-// }
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/dist/client/router";
-import Link from "next/link";
-import Image from "next/image";
-import { useSession, signIn, signOut, getSession } from "next-auth/react";
-import { userService } from "services";
-import LanguageDropdown from "components/Dropdowns/Language";
-import Delivery from "components/Dropdowns/delivery";
-import { BiCategory, BiSearchAlt2 } from "react-icons/bi";
-import { FaRegUser } from "react-icons/fa";
-import { AiOutlineHeart } from "react-icons/ai";
-import { HiOutlineShoppingBag } from "react-icons/hi";
-import { VscClose } from "react-icons/vsc";
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useSession, signIn, signOut, getSession } from 'next-auth/react';
+import { userService } from 'services';
+import { BiCategory, BiSearchAlt2 } from 'react-icons/bi';
+import { FaRegUser } from 'react-icons/fa';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { HiOutlineShoppingBag } from 'react-icons/hi';
+import { VscClose, VscChevronDown } from 'react-icons/vsc';
 import {
   Container,
   Col,
@@ -83,7 +23,7 @@ import {
   DropdownMenu,
   DropdownToggle,
   DropdownItem,
-} from "reactstrap";
+} from 'reactstrap';
 
 const Header = () => {
   //sticky navbar
@@ -93,7 +33,7 @@ const Header = () => {
 
   //scroll navbar
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
       setSticky({});
     };
@@ -107,9 +47,15 @@ const Header = () => {
     }
   };
 
-  // dropdow category
-  const [dropdownOpen, setOpen] = React.useState(false);
-  const toggles = () => setOpen(!dropdownOpen);
+  // dropdown language
+  const [dropdownLanguage, setOpenLanguage] = React.useState(false);
+  const toggleLanguage = () => setOpenLanguage(!dropdownLanguage);
+  // dropdown delivery
+  const [dropdownDelivery, setOpenDelivery] = React.useState(false);
+  const toggleDelivery = () => setOpenDelivery(!dropdownDelivery);
+  // dropdown category
+  const [dropdownCategory, setOpenCategory] = React.useState(false);
+  const toggleCategory = () => setOpenCategory(!dropdownCategory);
 
   // login
   // const { data: session } = useSession();
@@ -133,15 +79,15 @@ const Header = () => {
 
     // on route change start - hide page content by setting authorized to false
     const hideContent = () => setAuthorized(false);
-    router.events.on("routeChangeStart", hideContent);
+    router.events.on('routeChangeStart', hideContent);
 
     // on route change complete - run auth check
-    router.events.on("routeChangeComplete", authCheck);
+    router.events.on('routeChangeComplete', authCheck);
 
     // unsubscribe from events in useEffect return function
     return () => {
-      router.events.off("routeChangeStart", hideContent);
-      router.events.off("routeChangeComplete", authCheck);
+      router.events.off('routeChangeStart', hideContent);
+      router.events.off('routeChangeComplete', authCheck);
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,8 +95,8 @@ const Header = () => {
   function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in
     setUser(userService.userValue);
-    const publicPaths = ["/auth/login", "/auth/register"];
-    const path = url.split("?")[0];
+    const publicPaths = ['/auth/login', '/auth/register'];
+    const path = url.split('?')[0];
     if (!userService.userValue && !publicPaths.includes(path)) {
       setAuthorized(true);
     } else {
@@ -185,21 +131,68 @@ const Header = () => {
           <VscClose className="fs-3" />
         </Button>
       </div>
-      <div className="top-navbar">
+      <div className="top-navbar mt-2">
         <Container>
           <Row className="justify-content-start">
             <Col lg="2" md="6" sm="6" xs="6">
-              <LanguageDropdown />
+              <Dropdown isOpen={dropdownLanguage} toggle={toggleLanguage}>
+                <DropdownToggle
+                  caret
+                  tag="div"
+                  className="d-flex align-items-center"
+                >
+                  {''}
+                  <h6 className="mb-0">English</h6>
+                  <VscChevronDown />
+                </DropdownToggle>
+                <DropdownMenu className="mt-2">
+                  <DropdownItem header>English</DropdownItem>
+                  <DropdownItem>Việt Nam</DropdownItem>
+                  <DropdownItem>Ả Rập</DropdownItem>
+                  <DropdownItem>Hindi</DropdownItem>
+                  <DropdownItem>France</DropdownItem>
+                  <DropdownItem>Spain</DropdownItem>
+                  <DropdownItem>Italy</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </Col>
             <Col lg="2 text-lg-start" md="6 text-md-end" sm="6" xs="6">
-              <Delivery />
+              <Dropdown isOpen={dropdownDelivery} toggle={toggleDelivery}>
+                <DropdownToggle
+                  caret
+                  tag="div"
+                  className="d-flex align-items-center"
+                >
+                  {''}
+                  <h6 className="mb-0">
+                    Ship to{' '}
+                    <Image
+                      src="/usdelivery.png"
+                      alt="delivery"
+                      width={15}
+                      height={15}
+                      layout="fixed"
+                    />
+                  </h6>
+                  <VscChevronDown />
+                </DropdownToggle>
+                <DropdownMenu className="mt-2">
+                  <DropdownItem header>English</DropdownItem>
+                  <DropdownItem>Việt Nam</DropdownItem>
+                  <DropdownItem>Ả Rập</DropdownItem>
+                  <DropdownItem>Hindi</DropdownItem>
+                  <DropdownItem>France</DropdownItem>
+                  <DropdownItem>Spain</DropdownItem>
+                  <DropdownItem>Italy</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </Col>
           </Row>
         </Container>
       </div>
       <div
         className={`header bg-light shadow-sm p-3 bg-body rounded${
-          sticky ? " sticky-top " : ""
+          sticky ? ' sticky-top ' : ''
         }`}
       >
         <div>
@@ -214,14 +207,14 @@ const Header = () => {
                 />
               </div>
               <div className="align-self-center">
-                <Dropdown isOpen={dropdownOpen} toggle={toggles}>
+                <Dropdown isOpen={dropdownCategory} toggle={toggleCategory}>
                   <DropdownToggle
                     caret
                     tag="div"
                     className="category d-flex align-items-center"
                   >
                     <BiCategory />
-                    {""}
+                    {''}
                     <h6 className="mb-0">All Categories</h6>
                   </DropdownToggle>
                   <DropdownMenu className="mt-2">
@@ -241,7 +234,7 @@ const Header = () => {
               <div className="input-group align-items-center input-search ">
                 <Input
                   type="text"
-                  class="form-control form-search"
+                  className="form-control form-search"
                   placeholder="Search product name"
                   aria-label="Search product name"
                   aria-describedby="basic-addon"
@@ -264,12 +257,14 @@ const Header = () => {
                 </div>
                 <div className="user_info ms-2">
                   <h6 className="text-warning">
-                    {" "}
+                    {' '}
                     Hi {userService.userValue?.username}
                   </h6>
                   <h6>
-                    {" "}
-                    <Link href="/auth/login">Account</Link>
+                    {' '}
+                    <a onClick={logout} href="#">
+                      Account
+                    </a>
                   </h6>
                 </div>
               </div>
@@ -278,7 +273,7 @@ const Header = () => {
                 <div className="pe-2" id="wishlist">
                   <AiOutlineHeart className="fs-4" />
                 </div>
-                <div className="nav-cart-box dropdown" id="cart_items">
+                <div className="nav-cart-box" id="cart_items">
                   <HiOutlineShoppingBag className="fs-4" />
                 </div>
               </div>

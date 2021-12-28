@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { createPopper } from "@popperjs/core";
-import { VscChevronDown } from "react-icons/vsc";
+import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { createPopper } from '@popperjs/core';
+import { VscChevronDown } from 'react-icons/vsc';
 
 const LanguageDropdown = () => {
   // dropdown props
@@ -10,7 +10,7 @@ const LanguageDropdown = () => {
   const popoverDropdownRef = useRef();
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: "bottom-start",
+      placement: 'bottom-start',
     });
     setDropdownPopoverShow(true);
   };
@@ -29,16 +29,16 @@ const LanguageDropdown = () => {
         }}
       >
         English
-      </a>{" "}
+      </a>{' '}
       <i>
         <VscChevronDown />
       </i>
       <div
         ref={popoverDropdownRef}
-        className={(dropdownPopoverShow ? "d-block py-2" : "d-none py-2") + ""}
+        className={(dropdownPopoverShow ? 'd-block py-2' : 'd-none py-2') + ''}
       >
         <Link href="/">
-          <a href="#pablo" className={"d-block"}>
+          <a href="#pablo" className={'d-block'}>
             Tiếng Việt
           </a>
         </Link>
