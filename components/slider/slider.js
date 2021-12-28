@@ -1,10 +1,33 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
-import { DotButton } from "./button";
-import useEmblaCarousel from "embla-carousel-react";
-import { mediaByIndex } from "./image";
-
+import React, { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/dist/client/router';
+import { userService } from 'services';
+import Image from 'next/image';
+import Link from 'next/link';
+import { DotButton } from './button';
+import useEmblaCarousel from 'embla-carousel-react';
+import { mediaByIndex } from './image';
+import {
+  Container,
+  Col,
+  Row,
+  Navbar,
+  Nav,
+  NavItem,
+  Button,
+  Input,
+} from 'reactstrap';
 const EmblaCarousel = ({ slides }) => {
+  // login
+  // const { data: session } = useSession();
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const subscription = userService.user.subscribe((x) => setUser(x));
+    return () => subscription.unsubscribe();
+  }, []);
+  // slider
   const [viewportRef, embla] = useEmblaCarousel({ skipSnaps: false });
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -29,7 +52,7 @@ const EmblaCarousel = ({ slides }) => {
     if (!embla) return;
     onSelect();
     setScrollSnaps(embla.scrollSnapList());
-    embla.on("select", onSelect);
+    embla.on('select', onSelect);
   }, [embla, setScrollSnaps, onSelect]);
 
   return (
@@ -60,6 +83,33 @@ const EmblaCarousel = ({ slides }) => {
             />
           ))}
         </div>
+        {user ? (
+          <div></div>
+        ) : (
+          <div className="signin_block position-absolute">
+            <Container>
+              <div className="signin_block--title">
+                <p>Sign in so we can personalize your experience</p>
+              </div>
+              <div className="signin_block--content">
+                <Container>
+                  <Row>
+                    <Col md="6">
+                      <Link href="/auth/register" className="text-danger">
+                        Register
+                      </Link>
+                    </Col>
+                    <Col md="6">
+                      <Link href="/auth/login" className="text-danger">
+                        Sign in
+                      </Link>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            </Container>
+          </div>
+        )}
       </div>
     </>
   );
