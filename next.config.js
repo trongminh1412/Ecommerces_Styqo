@@ -1,12 +1,12 @@
 module.exports = {
   reactStrictMode: true,
   serverRuntimeConfig: {
-    secret: "VERIFY JWT TOKENS",
+    secret: 'VERIFY JWT TOKENS',
   },
   publicRuntimeConfig: {
     apiUrl:
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:4000/api" // development api
-        : "http://localhost:4000/api", // production api
+      process.env.NODE_ENV === 'development'
+        ? 'https://7hit-ecommerces.vercel.app/api' // development api
+        : 'https://7hit-ecommerces.vercel.app/api', // production api
   },
 };

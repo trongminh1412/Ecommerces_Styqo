@@ -1,19 +1,19 @@
-import NextAuth from "next-auth";
-import CredentialProvider from "next-auth/providers/credentials";
-import axios from "axios";
-import { getSession } from "next-auth";
+import NextAuth from 'next-auth';
+import CredentialProvider from 'next-auth/providers/credentials';
+import axios from 'axios';
+import { getSession } from 'next-auth';
 
 const httpClient = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: 'https://7hit-ecommerces.vercel.app/',
   headers: {
-    "Content-Type": `application/json`,
+    'Content-Type': `application/json`,
   },
 });
 // console.log("API", httpClient.defaults);
 
 httpClient.interceptors.request.use(async (config) => {
   const session = await getSession();
-  config.headers["Authorization"] = `Bearer ${session?.accessToken}`;
+  config.headers['Authorization'] = `Bearer ${session?.accessToken}`;
   return config;
 });
 
@@ -23,8 +23,8 @@ httpClient.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401) {
-      store.dispatch("logout");
-      router.push("/login");
+      store.dispatch('logout');
+      router.push('/login');
     }
     return Promise.reject(error.response.data);
   }
@@ -32,14 +32,14 @@ httpClient.interceptors.response.use(
 export default NextAuth({
   providers: [
     CredentialProvider({
-      name: "credentials",
+      name: 'credentials',
       credentials: {
         username: {
-          label: "Email",
-          type: "text",
-          placeholder: "johndoe@test.com",
+          label: 'Email',
+          type: 'text',
+          placeholder: 'johndoe@test.com',
         },
-        password: { label: "Password", type: "password" },
+        password: { label: 'Password', type: 'password' },
       },
 
       // step2
@@ -58,13 +58,13 @@ export default NextAuth({
         //   });
         try {
           if (
-            credentials.username === "johoje39511@videour.com" &&
-            credentials.password === "12345678"
+            credentials.username === 'johoje39511@videour.com' &&
+            credentials.password === '12345678'
           ) {
             const user = {
               id: 1,
-              name: "the anh",
-              email: "johoje39511@videour.com",
+              name: 'the anh',
+              email: 'johoje39511@videour.com',
             };
             if (user) {
               console.log(user);
@@ -74,7 +74,7 @@ export default NextAuth({
             }
           }
         } catch (e) {
-          throw new Error("There was an error on user authentication");
+          throw new Error('There was an error on user authentication');
         }
         // const res = await fetch(
         //   "https://61c0387333f24c00178231c2.mockapi.io/login",
@@ -110,9 +110,9 @@ export default NextAuth({
       return session;
     },
   },
-  secret: "test",
+  secret: 'test',
   jwt: {
-    secret: "test",
+    secret: 'test',
     encryption: true,
   },
   // pages: {

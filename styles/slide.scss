@@ -1,5 +1,5 @@
-$red-colorL: #e43226;
-$gay-color: #828282;
+$red-color: #e43226;
+$gray-color: #828282;
 
 .embla {
   position: relative;
@@ -106,8 +106,8 @@ $gay-color: #828282;
       padding: 0;
       outline: 0;
       border: 0;
-      width: 30px;
-      height: 30px;
+      width: 10px;
+      height: 10px;
       margin-right: 7.5px;
       margin-left: 7.5px;
       display: flex;
@@ -116,14 +116,14 @@ $gay-color: #828282;
       &:after {
         background-color: #efefef;
         width: 100%;
-        height: 4px;
-        border-radius: 2px;
+        height: 100%;
+        border-radius: 50px;
         content: '';
       }
 
       &.is-selected {
         &:after {
-          background-color: #1bcacd;
+          background-color: $red-color;
           opacity: 1;
         }
       }
@@ -143,10 +143,10 @@ $gay-color: #828282;
     transform: translate(-5%, 0%);
 
     p {
-      color: $gay-color;
+      color: $gray-color;
     }
     .signin_block--content a {
-      color: $red-colorL;
+      color: $red-color;
     }
   }
 }

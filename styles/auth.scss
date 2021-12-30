@@ -1,23 +1,101 @@
+$while-color: #f2f2f2;
 $gray-color: #828282;
-.auth_bg--relative {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  min-height: 100vh;
+$blue-color: #005cc8;
+$red-color: #e43227;
+$bg-background-color: #f8f8f8;
 
-  .auth_bg--absolute {
-    // background-image: url("/img/register_bg_2.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    --tw-bg-opacity: 0.2;
-    background-color: rgba(0, 0, 0, 0.2);
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
+.bg-background-auth {
+  background-color: $bg-background-color;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+.col_block--auth {
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+
+  h1 {
+    font-weight: bold;
+    font-size: 30px;
   }
-  i svg {
-    width: 12px;
+
+  h6 {
     color: $gray-color;
   }
+
+  .col_block--card {
+    border-radius: 6px;
+  }
+  .dropdown-toggle {
+    cursor: pointer;
+    &::after {
+      font-size: 0;
+    }
+  }
+
+  Form {
+    .form-default--text {
+      text-align: right;
+    }
+    .form-control {
+      &.is-invalid {
+        background-image: none;
+      }
+      :focus {
+        box-shadow: none;
+        border-color: $blue-color;
+      }
+    }
+    .text-regist {
+      font-size: 12px;
+    }
+    i {
+      position: absolute;
+      top: 38px;
+      right: 3%;
+      svg {
+        width: 19px;
+      }
+    }
+    input,
+    button {
+      border-radius: 10px;
+    }
+    .otp input[type='text'] {
+      width: 21% !important;
+      height: 40px !important;
+      border: 1px solid $gray-color;
+      text-align: center;
+      margin-right: 20px;
+      &:last-child {
+        margin-right: 0 !important;
+      }
+      &:focus-visible {
+        outline: $gray-color;
+      }
+    }
+
+    button {
+      background-color: $while-color;
+      border-color: $while-color;
+      &:hover {
+        background-color: $red-color;
+        border-color: $red-color;
+      }
+      &:focus {
+        background-color: $red-color;
+        border-color: $red-color;
+        box-shadow: none;
+      }
+    }
+  }
+}
+.svg-inline--fa {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
 }

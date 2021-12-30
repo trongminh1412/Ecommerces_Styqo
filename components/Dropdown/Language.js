@@ -1,50 +1,39 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { createPopper } from '@popperjs/core';
+import Image from 'next/image';
 import { VscChevronDown } from 'react-icons/vsc';
 
-const LanguageDropdown = () => {
-  // dropdown props
-  const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
-  const btnDropdownRef = useRef();
-  const popoverDropdownRef = useRef();
-  const openDropdownPopover = () => {
-    createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: 'bottom-start',
-    });
-    setDropdownPopoverShow(true);
-  };
-  const closeDropdownPopover = () => {
-    setDropdownPopoverShow(false);
-  };
+import {
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
+} from 'reactstrap';
+
+function Language(props) {
+  // dropdown language
+  const [dropdownLanguage, setOpenLanguage] = React.useState(false);
+  const toggleLanguage = () => setOpenLanguage(!dropdownLanguage);
   return (
     <>
-      <a
-        className="fs-6"
-        href="#pablo"
-        ref={btnDropdownRef}
-        onClick={(e) => {
-          e.preventDefault();
-          dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
-        }}
-      >
-        English
-      </a>{' '}
-      <i>
-        <VscChevronDown />
-      </i>
-      <div
-        ref={popoverDropdownRef}
-        className={(dropdownPopoverShow ? 'd-block py-2' : 'd-none py-2') + ''}
-      >
-        <Link href="/">
-          <a href="#pablo" className={'d-block'}>
-            Tiếng Việt
-          </a>
-        </Link>
-      </div>
+      <Dropdown isOpen={dropdownLanguage} toggle={toggleLanguage}>
+        <DropdownToggle caret tag="div" className="d-flex align-items-center">
+          {''}
+          <h6 className="mb-0">English</h6>
+          <VscChevronDown />
+        </DropdownToggle>
+        <DropdownMenu className="mt-2">
+          <DropdownItem header>English</DropdownItem>
+          <DropdownItem>Việt Nam</DropdownItem>
+          <DropdownItem>Ả Rập</DropdownItem>
+          <DropdownItem>Hindi</DropdownItem>
+          <DropdownItem>France</DropdownItem>
+          <DropdownItem>Spain</DropdownItem>
+          <DropdownItem>Italy</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
     </>
   );
-};
+}
 
-export default LanguageDropdown;
+export default Language;

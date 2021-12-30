@@ -1,17 +1,17 @@
-import React from "react";
-import Head from "next/head";
-import Router from "next/router";
-import { wrapper } from "../redux/store";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "/styles/home.scss";
-import "/styles/globals.scss";
-import "/styles/login.scss";
-import "/styles/auth.scss";
-import "styles/slide.scss";
-import Axios from "axios";
-import { SessionProvider, getSession } from "next-auth/react";
+import React from 'react';
+import Head from 'next/head';
+import Router from 'next/router';
+import { wrapper } from '../redux/store';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '/styles/home.scss';
+import '/styles/globals.scss';
+import '/styles/auth.scss';
+import 'styles/slide.scss';
+import 'styles/carousel.scss';
+import Axios from 'axios';
+import { SessionProvider, getSession } from 'next-auth/react';
 
-Axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL + "/api";
+Axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL + '/api';
 Axios.defaults.withCredentials = true;
 
 const fetcher = async (url) => {

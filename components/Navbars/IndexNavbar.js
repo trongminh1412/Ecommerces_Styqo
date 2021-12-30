@@ -4,11 +4,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
 import { userService } from 'services';
-import { BiCategory, BiSearchAlt2 } from 'react-icons/bi';
+import LanguageDropdown from 'components/Dropdown/Language';
+import DeliveryDropdown from 'components/Dropdown/Delivery';
+import CategoryDropdown from 'components/Dropdown/Category';
+
+import { BiSearchAlt2 } from 'react-icons/bi';
 import { FaRegUser } from 'react-icons/fa';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
-import { VscClose, VscChevronDown } from 'react-icons/vsc';
+import { VscClose } from 'react-icons/vsc';
 import {
   Container,
   Col,
@@ -18,11 +22,6 @@ import {
   NavItem,
   Button,
   Input,
-  Dropdown,
-  ButtonDropdown,
-  DropdownMenu,
-  DropdownToggle,
-  DropdownItem,
 } from 'reactstrap';
 
 const Header = () => {
@@ -46,16 +45,6 @@ const Header = () => {
       setSticky(false);
     }
   };
-
-  // dropdown language
-  const [dropdownLanguage, setOpenLanguage] = React.useState(false);
-  const toggleLanguage = () => setOpenLanguage(!dropdownLanguage);
-  // dropdown delivery
-  const [dropdownDelivery, setOpenDelivery] = React.useState(false);
-  const toggleDelivery = () => setOpenDelivery(!dropdownDelivery);
-  // dropdown category
-  const [dropdownCategory, setOpenCategory] = React.useState(false);
-  const toggleCategory = () => setOpenCategory(!dropdownCategory);
 
   // login
   // const { data: session } = useSession();
@@ -112,14 +101,16 @@ const Header = () => {
         data-key="top-banner"
         data-value="removed"
       >
-        <Link href="/flash-deals" className="d-block text-reset" passHref>
-          <Image
-            src="/event.png"
-            alt="7Hit Logo"
-            width={1400}
-            height={75}
-            layout="responsive"
-          />
+        <Link href="/" className="d-block text-reset" passHref>
+          <a>
+            <Image
+              src="/event.png"
+              alt="7Hit Logo"
+              width={1400}
+              height={75}
+              layout="responsive"
+            />
+          </a>
         </Link>
         <Button
           className="btn text-white bg-transparent border-0 position-absolute top-0 end-0"
@@ -135,63 +126,16 @@ const Header = () => {
         <Container>
           <Row className="justify-content-start">
             <Col lg="2" md="6" sm="6" xs="6">
-              <Dropdown isOpen={dropdownLanguage} toggle={toggleLanguage}>
-                <DropdownToggle
-                  caret
-                  tag="div"
-                  className="d-flex align-items-center"
-                >
-                  {''}
-                  <h6 className="mb-0">English</h6>
-                  <VscChevronDown />
-                </DropdownToggle>
-                <DropdownMenu className="mt-2">
-                  <DropdownItem header>English</DropdownItem>
-                  <DropdownItem>Việt Nam</DropdownItem>
-                  <DropdownItem>Ả Rập</DropdownItem>
-                  <DropdownItem>Hindi</DropdownItem>
-                  <DropdownItem>France</DropdownItem>
-                  <DropdownItem>Spain</DropdownItem>
-                  <DropdownItem>Italy</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+              <LanguageDropdown />
             </Col>
             <Col lg="2 text-lg-start" md="6 text-md-end" sm="6" xs="6">
-              <Dropdown isOpen={dropdownDelivery} toggle={toggleDelivery}>
-                <DropdownToggle
-                  caret
-                  tag="div"
-                  className="d-flex align-items-center"
-                >
-                  {''}
-                  <h6 className="mb-0">
-                    Ship to{' '}
-                    <Image
-                      src="/usdelivery.png"
-                      alt="delivery"
-                      width={15}
-                      height={15}
-                      layout="fixed"
-                    />
-                  </h6>
-                  <VscChevronDown />
-                </DropdownToggle>
-                <DropdownMenu className="mt-2">
-                  <DropdownItem header>English</DropdownItem>
-                  <DropdownItem>Việt Nam</DropdownItem>
-                  <DropdownItem>Ả Rập</DropdownItem>
-                  <DropdownItem>Hindi</DropdownItem>
-                  <DropdownItem>France</DropdownItem>
-                  <DropdownItem>Spain</DropdownItem>
-                  <DropdownItem>Italy</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+              <DeliveryDropdown />
             </Col>
           </Row>
         </Container>
       </div>
       <div
-        className={`header bg-light shadow-sm p-3 bg-body rounded${
+        className={`header bg-light shadow-sm p-2 bg-body rounded${
           sticky ? ' sticky-top ' : ''
         }`}
       >
@@ -207,28 +151,7 @@ const Header = () => {
                 />
               </div>
               <div className="align-self-center">
-                <Dropdown isOpen={dropdownCategory} toggle={toggleCategory}>
-                  <DropdownToggle
-                    caret
-                    tag="div"
-                    className="category d-flex align-items-center"
-                  >
-                    <BiCategory />
-                    {''}
-                    <h6 className="mb-0">All Categories</h6>
-                  </DropdownToggle>
-                  <DropdownMenu className="mt-2">
-                    <DropdownItem header>All Categories</DropdownItem>
-                    <DropdownItem>Savings & Featured Shops</DropdownItem>
-                    <DropdownItem>Grocery</DropdownItem>
-                    <DropdownItem>Electronics</DropdownItem>
-                    <DropdownItem>Clothing, shoes & Accessories</DropdownItem>
-                    <DropdownItem>Baby</DropdownItem>
-                    <DropdownItem>Toy & Video Games</DropdownItem>
-                    <DropdownItem>Home Improvement</DropdownItem>
-                    <DropdownItem>Beauty</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+                <CategoryDropdown />
               </div>
 
               <div className="input-group align-items-center input-search ">
@@ -280,7 +203,7 @@ const Header = () => {
             </Container>
           </Navbar>
         </div>
-        <div className="mt-3">
+        <div className="mt-2">
           <Container>
             <Nav>
               <NavItem className="active">

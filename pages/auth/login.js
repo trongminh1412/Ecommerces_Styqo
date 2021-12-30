@@ -4,14 +4,11 @@ import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Link from 'next/link';
-import Auth from '../../layouts/Auth';
+import LanguageDropdown from 'components/Dropdown/Language';
 import Image from 'next/image';
-// import LanguageDropdown from 'components/Dropdown/Language';
-// import { LanguageDropdown } from 'components/Dropdown/LanguageDropdown';
 import { userService } from 'services';
 import { Layout } from 'components/account/Layout';
 import { AiOutlineEye } from 'react-icons/ai';
-import { VscChevronDown } from 'react-icons/vsc';
 import axios from 'axios';
 import {
   signIn,
@@ -33,17 +30,9 @@ import {
   Label,
   Input,
   Button,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
 } from 'reactstrap';
 
 export default function Login() {
-  //dropdown
-  const [dropdownOpen, setOpen] = React.useState(false);
-  const toggles = () => setOpen(!dropdownOpen);
-
   // form valid
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -79,7 +68,7 @@ export default function Login() {
   }
   return (
     <>
-      <Layout>
+      <div className="bg-background-auth">
         <Container className="py-5">
           <Row>
             <Col className="col-xl-4 col-lg-5 col-md-7 col-sm-9 mx-auto col_block--auth">
@@ -87,26 +76,7 @@ export default function Login() {
                 <CardBody>
                   <div className="py-2">
                     <li className="d-inline-block float-end">
-                      <Dropdown isOpen={dropdownOpen} toggle={toggles}>
-                        <DropdownToggle
-                          caret
-                          tag="div"
-                          className="d-flex align-items-center"
-                        >
-                          {''}
-                          <h6 className="mb-0">English</h6>
-                          <VscChevronDown />
-                        </DropdownToggle>
-                        <DropdownMenu className="mt-2">
-                          <DropdownItem header>English</DropdownItem>
-                          <DropdownItem>Việt Nam</DropdownItem>
-                          <DropdownItem>Ả Rập</DropdownItem>
-                          <DropdownItem>Hindi</DropdownItem>
-                          <DropdownItem>France</DropdownItem>
-                          <DropdownItem>Spain</DropdownItem>
-                          <DropdownItem>Italy</DropdownItem>
-                        </DropdownMenu>
-                      </Dropdown>
+                      <LanguageDropdown />
                     </li>
                   </div>
                   <CardTitle className="py-5">
@@ -209,7 +179,7 @@ export default function Login() {
             </Col>
           </Row>
         </Container>
-      </Layout>
+      </div>
     </>
   );
 }
