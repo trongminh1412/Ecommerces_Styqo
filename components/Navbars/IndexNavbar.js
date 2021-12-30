@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useSession, signIn, signOut, getSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { userService } from 'services';
 import LanguageDropdown from 'components/Dropdown/Language';
-import DeliveryDropdown from 'components/Dropdown/Delivery';
+import DeliveryDropdown from 'components/Dropdown/delivery';
 import CategoryDropdown from 'components/Dropdown/Category';
 
 import { BiSearchAlt2 } from 'react-icons/bi';
