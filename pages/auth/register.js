@@ -233,5 +233,3 @@ export default function Register() {
     </>
   );
 }
-
-Register.layout = Auth;

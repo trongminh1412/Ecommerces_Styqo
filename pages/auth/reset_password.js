@@ -139,5 +139,3 @@ export default function Reset_password() {
     </>
   );
 }
-
-Reset_password.layout = Auth;

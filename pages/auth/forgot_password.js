@@ -99,5 +99,3 @@ export default function Forgot_password() {
     </>
   );
 }
-
-Forgot_password.layout = Auth;
