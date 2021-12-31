@@ -5,6 +5,7 @@ import { wrapper } from '../redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '/styles/home.scss';
 import '/styles/globals.scss';
+import '/styles/auth.scss';
 import 'styles/slide.scss';
 import Axios from 'axios';
 import { SessionProvider, getSession } from 'next-auth/react';
