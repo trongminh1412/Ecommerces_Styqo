@@ -212,6 +212,25 @@ $radius-collect: 25px;
       }
     }
   }
+  .signin_block {
+    position: absolute !important;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    padding: 50px;
+    text-align: center;
+    align-items: center;
+    min-height: 156px;
+    top: 5%;
+    right: 0;
+    transform: translate(-5%, 0%);
+
+    p {
+      color: $gray-color;
+    }
+    .signin_block--content a {
+      color: $red-color;
+    }
+  }
 }
 
 //section category
