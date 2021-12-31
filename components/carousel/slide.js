@@ -7,12 +7,11 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Container, Row, Col } from 'reactstrap';
+import axios from 'axios';
 
-function Slide(props) {
+const Slide = ({ banner }) => {
   // login
-  const router = useRouter();
   const [user, setUser] = useState(null);
-  const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
     const subscription = userService.user.subscribe((x) => setUser(x));
@@ -22,7 +21,8 @@ function Slide(props) {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3500,
     slidesToShow: 1,
     slidesToScroll: 1,
     customPaging: function (i) {
@@ -31,6 +31,7 @@ function Slide(props) {
   };
   return (
     <div className="slide__banner position-relative">
+      {/* <h1>{banner}</h1> */}
       <Slider {...settings}>
         <div>
           <Image
@@ -116,6 +117,5 @@ function Slide(props) {
       )}
     </div>
   );
-}
-
+};
 export default Slide;
